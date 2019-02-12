@@ -20,8 +20,6 @@ AUTH_HEADER="Authorization: token ${GITHUB_TOKEN}"
 main() {
     echo "Start Main"
     printenv
-    body=$(jq --raw-output "$GITHUB_EVENT_PATH")
-    echo "$body"
   	action=$(jq --raw-output .action "$GITHUB_EVENT_PATH")
     pr_nr=$(jq --raw-output .pull_request.number "$GITHUB_EVENT_PATH")
     repo_name=$(jq --raw-output .name "$GITHUB_EVENT_PATH")
