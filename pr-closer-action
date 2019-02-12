@@ -18,6 +18,7 @@ API_HEADER="Accept: application/vnd.github.${API_VERSION}+json"
 AUTH_HEADER="Authorization: token ${GITHUB_TOKEN}"
 
 main() {
+    echo "Start Main"
   	action=$(jq --raw-output .action "$GITHUB_EVENT_PATH")
 	  merged=$(jq --raw-output .pull_request.merged "$GITHUB_EVENT_PATH")
 	  echo "DEBUG -> action: $action merged: $merged"
