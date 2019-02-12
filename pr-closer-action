@@ -21,9 +21,10 @@ main() {
     echo "Start Main"
     printenv
   	action=$(jq --raw-output .action "$GITHUB_EVENT_PATH")
-	  merged=$(jq --raw-output .pull_request.merged "$GITHUB_EVENT_PATH")
+	  merged=$(jq --raw-output .pull_request "$GITHUB_EVENT_PATH")
+    pr=$(jq --raw-output .action "$GITHUB_EVENT_PATH")
+    echo "DEBUG -> pr: $pr"
 	  echo "DEBUG -> action: $action merged: $merged"
-
     if [[ "$action" == "closed" ]] && [[ "$merged" == "true" ]]; then
       echo "Bingo - PR is closed or merged. Let's get rid of the helm"
     fi
