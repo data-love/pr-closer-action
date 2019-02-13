@@ -19,6 +19,8 @@ AUTH_HEADER="Authorization: token ${GITHUB_TOKEN}"
 
 main() {
     echo "Start Main"
+    echo "conntect to dev cluster"
+    gcloud container clusters get-credentials meindach-dev --zone europe-west3-b --project meindach-214305
     helm version
   	action=$(jq --raw-output .action "$GITHUB_EVENT_PATH")
     pr_nr=$(jq --raw-output .pull_request.number "$GITHUB_EVENT_PATH")
