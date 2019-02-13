@@ -19,18 +19,16 @@ AUTH_HEADER="Authorization: token ${GITHUB_TOKEN}"
 
 main() {
     echo "Start Main"
-    printenv
-    body=$(jq --raw-output . "$GITHUB_EVENT_PATH")
-    echo "$body"
+    helm version
   	action=$(jq --raw-output .action "$GITHUB_EVENT_PATH")
     pr_nr=$(jq --raw-output .pull_request.number "$GITHUB_EVENT_PATH")
     repo_name=$(jq --raw-output .repository.name "$GITHUB_EVENT_PATH")
-    app_name="$repo_name$pr_nr"
 	  merged=$(jq --raw-output .pull_request.merged "$GITHUB_EVENT_PATH")
-	  echo "DEBUG -> action: $action merged: $merged pr_nr: $pr_nr repo_name: $repo_name app_name: $app_name"
-    if [[ "$action" == "closed" ]] && [[ "$merged" == "true" ]]; then
-
+    chart_name="pr-$pr_nr-$repo_name"
+	  echo "DEBUG -> action: $action merged: $merged pr_nr: $pr_nr repo_name: $repo_name chart_name: $chart_name"
+    if [[ "$action" == "closed" ]] && [[ "$merged" == "true" ]]; then 
       echo "Bingo - PR is closed or merged. Let's get rid of the helm"
+      echo "helm delete $chart_name --purge"
     fi
 }
 
