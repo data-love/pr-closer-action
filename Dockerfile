@@ -14,11 +14,7 @@ RUN curl -Lo /tmp/helm-linux-amd64.tar.gz https://storage.googleapis.com/kuberne
     && helm init --client-only \
     && helm plugin install https://github.com/mbenabda/helm-local-chart-version
 
-RUN	apk add --no-cache \
-	bash \
-	ca-certificates \
-	curl \
-	jq
+RUN	apt-get install jq
 
 COPY pr-closer-action /usr/bin/pr-closer-action
 
